@@ -93,7 +93,7 @@ HttpsStatusContactAccessory.prototype = {
 
         try {
             const res = await axios.get(this.url);
-            self.stateValue = res.statusCode === this.okStatus ? notDetectedState : detectedState;
+            self.stateValue = res.status === this.okStatus ? notDetectedState : detectedState;
             self.setStatusFault(0);
             if (!self.stateValue) {
                 self.log('[' + self.name + '] Ping result for ' + self.host + ' was ' + self.stateValue);
