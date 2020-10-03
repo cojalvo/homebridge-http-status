@@ -1,7 +1,7 @@
 {
-  "name": "homebridge-https-status",
+  "name": "homebridge-http-status",
   "description": "Homebridge plugin for https health status",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/cojalvo/homebridge-http-status"
@@ -11,7 +11,7 @@
   "keywords": [
     "homebridge-plugin",
     "homebridge-http",
-    "homebridge-http"
+    "homebridge-http",
   ],
   "bugs": {
     "url": ""
