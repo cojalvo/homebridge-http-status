@@ -1,6 +1,6 @@
 # homebridge-http-status
 
-A ping state sensor plugin for homebridge (https://github.com/nfarina/homebridge).
+A Https status sensor plugin for homebridge (https://github.com/nfarina/homebridge).
 
 ##Installation
 Install homebridge using: npm install -g homebridge
