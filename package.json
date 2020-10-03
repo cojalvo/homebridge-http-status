@@ -21,7 +21,8 @@
     "homebridge": ">=0.4.4"
   },
   "dependencies": {
-    "axios": "^0.20.0"
+    "axios": "^0.20.0",
+    "pkginfo": "^0.3.1"
   },
   "devDependencies": {
     "eslint": "^7.1.0"
