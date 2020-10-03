@@ -11,8 +11,8 @@ module.exports = function (homebridge) {
     // Service and Characteristic are from hap-nodejs
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerPlatform('homebridge-https-status', 'HttpsStatus', HttpsStatusPlatform);
-    homebridge.registerAccessory('homebridge-https-status', 'HttpsStatusContact', HttpsStatusContactAccessory);
+    homebridge.registerPlatform('homebridge-http-status', 'HttpStatus', HttpsStatusPlatform);
+    homebridge.registerAccessory('homebridge-http-status', 'HttpStatusContact', HttpsStatusContactAccessory);
 
     detectedState = Characteristic.ContactSensorState.CONTACT_DETECTED; // Closed
     notDetectedState = Characteristic.ContactSensorState.CONTACT_NOT_DETECTED; // Open
