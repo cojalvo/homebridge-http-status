@@ -1,0 +1,39 @@
+{
+  "name": "homebridge-https-status",
+  "description": "Homebridge plugin for https health status",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cojalvo"
+  },
+  "license": "MIT",
+  "preferGlobal": true,
+  "keywords": [
+    "homebridge-plugin",
+    "homebridge-http",
+    "homebridge-http"
+  ],
+  "bugs": {
+    "url": ""
+  },
+  "engines": {
+    "node": ">=10.17.0",
+    "homebridge": ">=0.4.4"
+  },
+  "dependencies": {
+    "axios": "^0.20.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.1.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "funding": [
+    {
+      "type": "paypal",
+      "url": "https://paypal.me/cojalvo"
+    }
+  ]
+}
