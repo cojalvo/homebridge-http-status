@@ -1,6 +1,6 @@
 {
   "name": "homebridge-http-status",
-  "description": "Homebridge plugin for https health status",
+  "description": "Homebridge plugin for http health status",
   "version": "1.0.1",
   "repository": {
     "type": "git",
