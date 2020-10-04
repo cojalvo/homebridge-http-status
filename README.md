@@ -2,12 +2,12 @@
 
 A Https status sensor plugin for homebridge (https://github.com/nfarina/homebridge).
 
-##Installation
+## Installation
 Install homebridge using: npm install -g homebridge
 Install this plugin.
 Update your config.json configuration file
 
-##Configuration
+## Configuration
 Example config.json entry:
 
 ```$xslt
