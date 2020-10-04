@@ -1,6 +1,6 @@
 # homebridge-http-status
 
-A Https status sensor plugin for homebridge (https://github.com/nfarina/homebridge).
+A Http status sensor plugin for homebridge (https://github.com/nfarina/homebridge).
 
 ## Installation
 1. Install homebridge using: `npm install -g homebridge`
