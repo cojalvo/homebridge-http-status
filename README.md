@@ -1,13 +1,13 @@
 # homebridge-http-status
 
-A Https status sensor plugin for homebridge (https://github.com/nfarina/homebridge).
+A Http status sensor plugin for homebridge (https://github.com/nfarina/homebridge).
 
-##Installation
-Install homebridge using: npm install -g homebridge
-Install this plugin.
-Update your config.json configuration file
+## Installation
+1. Install homebridge using: `npm install -g homebridge`
+2. Install homebridge-http-status plugin: `npm install -g homebridge-http-status`
+3. Update your config.json configuration file
 
-##Configuration
+## Configuration
 Example config.json entry:
 
 ```$xslt
