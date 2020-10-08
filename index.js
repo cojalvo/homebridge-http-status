@@ -92,14 +92,13 @@ HttpsStatusContactAccessory.prototype = {
     doCheckStatus: async function () {
 
         try {
+            this.log(`Start checking status for ${this.url}`);
             const res = await axios.get(this.url);
             this.stateValue = res.status === this.okStatus ? notDetectedState : detectedState;
             this.setStatusFault(0);
-            if (!this.stateValue) {
-                this.log('[' + this.name + '] Ping result for ' + this.host + ' was ' + this.stateValue);
-            }
+            this.log('[' + this.name + '] Ping result for ' + this.host + ' was ' + this.stateValue);
         } catch (e) {
-            this.log(e);
+            this.log(JSON.stringify(e));
             this.stateValue = notDetectedState;
             this.setStatusFault(1);
         }
