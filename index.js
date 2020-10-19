@@ -52,7 +52,7 @@ function HttpsStatusContactAccessory(pkginfo, log, config) {
     this.name = config['name'] || 'Https Status Sensor';
     this.url = config['url'] || 'localhost';
     this.method = config['method'] || 'get';
-    this.headers = config['headers'];
+    this.headers = config['headers'] || {};
     this.expectedResponse = config['expectedResponse'];
     this.responsePath = config['responsePath'];
     this.requestBody = config['requestBody'];
