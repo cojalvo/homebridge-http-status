@@ -52,6 +52,7 @@ function HttpsStatusContactAccessory(pkginfo, log, config) {
     this.name = config['name'] || 'Https Status Sensor';
     this.url = config['url'] || 'localhost';
     this.method = config['method'] || 'get';
+    this.headers = config['headers'];
     this.expectedResponse = config['expectedResponse'];
     this.responsePath = config['responsePath'];
     this.requestBody = config['requestBody'];
@@ -96,8 +97,26 @@ HttpsStatusContactAccessory.prototype = {
 
         try {
             this.log(`Start checking status for ${this.url}`);
-            const res = await axios.get(this.url);
-            this.stateValue = res.status === this.okStatus ? notDetectedState : detectedState;
+            const config = {
+                method: this.method,
+                baseUrl: this.url,
+                headers: this.headers,
+                data: this.requestBody,
+            };
+            const res = await axios.request(config);
+            let success = res.status === this.okStatus;
+            //check body?
+            if (success && this.expectedResponse && this.responsePath) {
+                const parts = this.responsePath.split('.');
+                let finalRes = res.data;
+                parts.forEach(p => {
+                    finalRes = finalRes[p];
+                });
+                success = JSON.stringify(finalRes) === this.expectedResponse;
+            }
+
+            this.stateValue = success ? notDetectedState : detectedState;
+
             this.setStatusFault(0);
             this.log('[' + this.name + '] Ping result for ' + this.url + ' was ' + this.stateValue);
         } catch (e) {
