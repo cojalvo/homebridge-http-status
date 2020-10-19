@@ -48,10 +48,13 @@ HttpsStatusPlatform.prototype = {
 };
 
 function HttpsStatusContactAccessory(pkginfo, log, config) {
-
     this.log = log;
     this.name = config['name'] || 'Https Status Sensor';
     this.url = config['url'] || 'localhost';
+    this.method = config['method'] || 'get';
+    this.expectedResponse = config['expectedResponse'];
+    this.responsePath = config['responsePath'];
+    this.requestBody = config['requestBody'];
     this.okStatus = config['okStatus'] || 200;
     this.pingInterval = parseInt(config['interval']) || 300;
 
@@ -96,10 +99,10 @@ HttpsStatusContactAccessory.prototype = {
             const res = await axios.get(this.url);
             this.stateValue = res.status === this.okStatus ? notDetectedState : detectedState;
             this.setStatusFault(0);
-            this.log('[' + this.name + '] Ping result for ' + this.host + ' was ' + this.stateValue);
+            this.log('[' + this.name + '] Ping result for ' + this.url + ' was ' + this.stateValue);
         } catch (e) {
             this.log(JSON.stringify(e));
-            this.stateValue = notDetectedState;
+            this.stateValue = detectedState;
             this.setStatusFault(1);
         }
 
