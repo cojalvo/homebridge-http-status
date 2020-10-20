@@ -99,9 +99,10 @@ HttpsStatusContactAccessory.prototype = {
             this.log(`Start checking status for ${this.url}`);
             const config = {
                 method: this.method,
-                baseUrl: this.url,
+                baseURL: this.url,
                 headers: this.headers,
                 data: this.requestBody,
+                url: ''
             };
             const res = await axios.request(config);
             let success = res.status === this.okStatus;
