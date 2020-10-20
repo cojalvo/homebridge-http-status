@@ -113,7 +113,7 @@ HttpsStatusContactAccessory.prototype = {
                 parts.forEach(p => {
                     finalRes = finalRes[p];
                 });
-                success = JSON.stringify(finalRes) === this.expectedResponse;
+                success = finalRes === this.expectedResponse;
             }
 
             this.stateValue = success ? notDetectedState : detectedState;
