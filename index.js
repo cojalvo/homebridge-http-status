@@ -108,11 +108,14 @@ HttpsStatusContactAccessory.prototype = {
             let success = res.status === this.okStatus;
             //check body?
             if (success && this.expectedResponse && this.responsePath) {
+                this.log(`Parsing response body: ${JSON.stringify(res.data)}`);
                 const parts = this.responsePath.split('.');
                 let finalRes = res.data;
                 parts.forEach(p => {
                     finalRes = finalRes[p];
                 });
+
+                this.log(`Parsed response: ${finalRes}. Expected response: ${this.expectedResponse}`);
                 success = finalRes === this.expectedResponse;
             }
 
