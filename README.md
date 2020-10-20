@@ -18,6 +18,10 @@ Example config.json entry:
                     "id": "check-api",
                     "name": "Api Health",
                     "okStatus" : 200,
+                    "expectedResponse": "true",   
+                    "responsePath": "path.to.the.json.entry",   {"path": {"to": {"the": {"json": {"entry": true}}}}}  
+                    "method": "get",
+                    "headers": {"Authorization": "TOKEN", "Some-Header": "Some-Header-Value"},
                     "url": "https://some.api.com/health",
                     "interval": 180
                 },
@@ -25,7 +29,7 @@ Example config.json entry:
                ....
             ]
 ```
-
+                
 ## Credits
 
 This Plugin inspired by the https://github.com/jsworks/homebridge-ping-hosts 
