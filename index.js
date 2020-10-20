@@ -115,7 +115,7 @@ HttpsStatusContactAccessory.prototype = {
                     finalRes = finalRes[p];
                 });
 
-                this.log(`Parsed response: ${finalRes}. Expected response: ${this.expectedResponse}`);
+                this.log(`Parsed response: ${finalRes} , Expected response: ${this.expectedResponse}`);
                 success = finalRes === this.expectedResponse;
             }
 
