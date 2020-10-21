@@ -133,7 +133,7 @@ HttpsStatusContactAccessory.prototype = {
 
             this.setStatusFault(0);
             this.updateStateIfNeeded()
-            this.log('[' + this.name + '] Ping result for ' + this.url + ' was ' + success ? 'ok' : 'not ok');
+            this.log('[' + this.name + '] Ping result for ' + this.url + ' was ' + (success ? 'ok' : 'not ok'));
         } catch (e) {
             this.log(JSON.stringify(e));
             this.stateValue = openState;
