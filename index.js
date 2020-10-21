@@ -125,6 +125,7 @@ HttpsStatusContactAccessory.prototype = {
             this.setStatusFault(0);
 
             if (this.lastStateValue !== this.stateValue) {
+                this.log('[' + this.name + '] Changing state to:' + this.stateValue);
                 this._service.getCharacteristic(Characteristic.ContactSensorState)
                     .setValue(this.stateValue);
                 this._service.getCharacteristic(Characteristic.ContactSensorState)
