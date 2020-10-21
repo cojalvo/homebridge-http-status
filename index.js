@@ -14,8 +14,8 @@ module.exports = function (homebridge) {
     homebridge.registerPlatform('homebridge-http-status', 'HttpStatus', HttpsStatusPlatform);
     homebridge.registerAccessory('homebridge-http-status', 'HttpStatusContact', HttpsStatusContactAccessory);
 
-    closeState = Characteristic.ContactSensorState.CONTACT_NOT_DETECTED; // Closed
-    openState = Characteristic.ContactSensorState.CONTACT_DETECTED; // Open
+    openState = Characteristic.ContactSensorState.CONTACT_NOT_DETECTED;
+    closeState = Characteristic.ContactSensorState.CONTACT_DETECTED;
 
 };
 
