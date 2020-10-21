@@ -1,10 +1,10 @@
 "use strict";
 
-let Service, Characteristic, detectedState, notDetectedState;
+let Service, Characteristic, closeState, openState;
 const axios = require('axios');
 
 // Update UI immediately after sensor state change
-const updateUI = false;
+const updateUI = true;
 
 module.exports = function (homebridge) {
 
@@ -14,8 +14,8 @@ module.exports = function (homebridge) {
     homebridge.registerPlatform('homebridge-http-status', 'HttpStatus', HttpsStatusPlatform);
     homebridge.registerAccessory('homebridge-http-status', 'HttpStatusContact', HttpsStatusContactAccessory);
 
-    detectedState = Characteristic.ContactSensorState.CONTACT_DETECTED; // Closed
-    notDetectedState = Characteristic.ContactSensorState.CONTACT_NOT_DETECTED; // Open
+    closeState = Characteristic.ContactSensorState.CONTACT_NOT_DETECTED; // Closed
+    openState = Characteristic.ContactSensorState.CONTACT_DETECTED; // Open
 
 };
 
@@ -60,7 +60,8 @@ function HttpsStatusContactAccessory(pkginfo, log, config) {
     this.pingInterval = parseInt(config['interval']) || 300;
 
     // Initial state
-    this.stateValue = detectedState;
+    this.stateValue = closeState;
+    this.lastStateValue = closeState;
 
     this._service = new Service.ContactSensor(this.name);
 
@@ -78,7 +79,7 @@ function HttpsStatusContactAccessory(pkginfo, log, config) {
 
         this.log('[' + this.name + '] Setting sensor state set to ' + newState);
         this._service.getCharacteristic(Characteristic.ContactSensorState)
-            .setValue(newState ? detectedState : notDetectedState);
+            .setValue(newState ? closeState : openState);
 
         if (updateUI)
             this._service.getCharacteristic(Characteristic.ContactSensorState)
@@ -119,13 +120,29 @@ HttpsStatusContactAccessory.prototype = {
                 success = finalRes === this.expectedResponse;
             }
 
-            this.stateValue = success ? notDetectedState : detectedState;
+            this.stateValue = success ? closeState : openState;
 
             this.setStatusFault(0);
+
+            if (this.lastStateValue !== this.stateValue) {
+                this._service.getCharacteristic(Characteristic.ContactSensorState)
+                    .setValue(this.stateValue);
+                this._service.getCharacteristic(Characteristic.ContactSensorState)
+                    .getValue();
+                this.lastStateValue = this.stateValue;
+            }
+
             this.log('[' + this.name + '] Ping result for ' + this.url + ' was ' + this.stateValue);
         } catch (e) {
             this.log(JSON.stringify(e));
-            this.stateValue = detectedState;
+            this.stateValue = openState;
+            if (this.lastStateValue !== this.stateValue) {
+                this._service.getCharacteristic(Characteristic.ContactSensorState)
+                    .setValue(this.stateValue);
+                this._service.getCharacteristic(Characteristic.ContactSensorState)
+                    .getValue();
+                this.lastStateValue = this.stateValue;
+            }
             this.setStatusFault(1);
         }
 
