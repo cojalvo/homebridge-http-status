@@ -94,7 +94,16 @@ function HttpsStatusContactAccessory(pkginfo, log, config) {
 
 HttpsStatusContactAccessory.prototype = {
 
-    doCheckStatus: async function () {
+    updateStateIfNeeded: function () {
+        if (this.lastStateValue !== this.stateValue) {
+            this.log('[' + this.name + '] Changing state to:' + this.stateValue);
+            this._service.getCharacteristic(Characteristic.ContactSensorState)
+                .setValue(this.stateValue);
+            this._service.getCharacteristic(Characteristic.ContactSensorState)
+                .getValue();
+            this.lastStateValue = this.stateValue;
+        }
+    }, doCheckStatus: async function () {
 
         try {
             this.log(`Start checking status for ${this.url}`);
@@ -123,27 +132,12 @@ HttpsStatusContactAccessory.prototype = {
             this.stateValue = success ? closeState : openState;
 
             this.setStatusFault(0);
-
-            if (this.lastStateValue !== this.stateValue) {
-                this.log('[' + this.name + '] Changing state to:' + this.stateValue);
-                this._service.getCharacteristic(Characteristic.ContactSensorState)
-                    .setValue(this.stateValue);
-                this._service.getCharacteristic(Characteristic.ContactSensorState)
-                    .getValue();
-                this.lastStateValue = this.stateValue;
-            }
-
+            this.updateStateIfNeeded()
             this.log('[' + this.name + '] Ping result for ' + this.url + ' was ' + success ? 'ok' : 'not ok');
         } catch (e) {
             this.log(JSON.stringify(e));
             this.stateValue = openState;
-            if (this.lastStateValue !== this.stateValue) {
-                this._service.getCharacteristic(Characteristic.ContactSensorState)
-                    .setValue(this.stateValue);
-                this._service.getCharacteristic(Characteristic.ContactSensorState)
-                    .getValue();
-                this.lastStateValue = this.stateValue;
-            }
+            this.updateStateIfNeeded();
             this.setStatusFault(1);
         }
 
