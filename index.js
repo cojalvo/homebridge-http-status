@@ -56,6 +56,7 @@ function HttpsStatusContactAccessory(pkginfo, log, config) {
     this.expectedResponse = config['expectedResponse'];
     this.responsePath = config['responsePath'];
     this.requestBody = config['requestBody'];
+    this.ignoreRequestError = config['ignoreRequestError'] ? config['ignoreRequestError'] : false;
     this.okStatus = config['okStatus'] || 200;
     this.pingInterval = parseInt(config['interval']) || 300;
 
@@ -132,13 +133,15 @@ HttpsStatusContactAccessory.prototype = {
             this.stateValue = success ? closeState : openState;
 
             this.setStatusFault(0);
-            this.updateStateIfNeeded()
+            this.updateStateIfNeeded();
             this.log('[' + this.name + '] Ping result for ' + this.url + ' was ' + (success ? 'ok' : 'not ok'));
         } catch (e) {
-            this.log(JSON.stringify(e));
-            this.stateValue = openState;
-            this.updateStateIfNeeded();
-            this.setStatusFault(1);
+            if (e.response || this.ignoreRequestError !== true) {
+                this.log(JSON.stringify(e));
+                this.stateValue = openState;
+                this.updateStateIfNeeded();
+                this.setStatusFault(1);
+            }
         }
 
     },
